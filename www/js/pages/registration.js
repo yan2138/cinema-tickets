@@ -1,25 +1,11 @@
 // registration.html — 注册：前端校验 + 提交。
-import { register, getProfile } from '../api/account.js';
-import { isLoggedIn, clearTokens } from '../api/auth.js';
+import { register } from '../api/account.js';
 import { initPhoneMask } from '../utils/phoneMask.js';
 import { initHeader } from '../components/header.js';
 
 const form = document.getElementById('reg-form');
 
 initPhoneMask(document.getElementById('reg-phone'));
-
-// 已登录用户不该停留在注册页（需求 5.2）
-async function redirectIfLoggedIn() {
-  if (!isLoggedIn()) return;
-  try {
-    await getProfile();
-    location.replace('index.html');
-  } catch {
-    clearTokens();
-  }
-}
-
-redirectIfLoggedIn();
 
 // 校验：返回 { 字段名: 错误文案 } 或空对象
 function validate(values) {

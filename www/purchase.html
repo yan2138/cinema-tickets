@@ -29,7 +29,6 @@
   <main class="l-main">
     <div class="l-container l-stack l-stack--lg">
       <div class="c-page-title"><div class="c-page-title__main"><h1>Checkout</h1></div></div>
-      <div id="purchase-alert"></div>
       <div class="l-split">
         <div class="l-split__main l-stack l-stack--lg">
           <section class="c-card" aria-labelledby="contact-title">
@@ -63,24 +62,18 @@
           <section class="c-card" aria-labelledby="promo-title">
             <div class="c-card__header"><h2 class="c-card__title" id="promo-title">Promo code</h2></div>
             <div class="c-card__body">
-              <div class="c-promo" id="promo">
-                <form class="c-promo__form" id="promo-form" novalidate>
-                  <input class="c-input c-promo__input" id="promo-input" type="text" name="promoCode" maxlength="32" placeholder="Enter promo code">
-                  <button class="c-btn c-btn--secondary" type="submit">Apply</button>
-                </form>
-                <div id="promo-applied"></div>
-                <p class="c-promo__message" id="promo-message"></p>
-              </div>
+              <form class="c-promo__form" id="promo-form" novalidate>
+                <input class="c-input c-promo__input" id="promo-input" type="text" name="promoCode" placeholder="Enter promo code">
+                <button class="c-btn c-btn--secondary" type="submit">Apply</button>
+              </form>
+              <p class="c-promo__message" id="promo-message"></p>
             </div>
-          </section>
-          <section class="c-card" aria-labelledby="tickets-title">
-            <div class="c-card__header"><h2 class="c-card__title" id="tickets-title">Tickets</h2></div>
-            <div class="c-card__body l-stack" id="purchase-tickets"></div>
           </section>
         </div>
         <aside class="l-split__aside">
           <section class="c-summary" aria-labelledby="purchase-summary-title">
             <h2 class="c-summary__title" id="purchase-summary-title">Summary</h2>
+            <ul class="c-summary__list" id="purchase-list"></ul>
             <dl class="c-summary__lines" id="purchase-lines">
               <div class="c-summary__line"><dt>Subtotal</dt><dd id="purchase-subtotal">0 ₽</dd></div>
               <div class="c-summary__line c-summary__line--discount" id="purchase-discount-row" hidden><dt>Discount</dt><dd id="purchase-discount">0 ₽</dd></div>
