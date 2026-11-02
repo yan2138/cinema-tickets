@@ -1,0 +1,19 @@
+# 课程材料 / 备份文件：不随代码提交
+Cinema.International.26.pdf
+cinema-kit.zip
+
+# 本地个人笔记与练习
+练习.txt
+转换文本.txt
+www-答辩逐页代码分析.md
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 依赖与构建（本项目不使用，防止误提交）
+node_modules/
+dist/

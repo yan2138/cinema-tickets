@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cinema.Tickets · Checkout</title>
+<link rel="stylesheet" href="../kit/tokens.css">
+<link rel="stylesheet" href="../kit/base.css">
+<link rel="stylesheet" href="../kit/layout.css">
+<link rel="stylesheet" href="../kit/components.css">
+<script type="module" src="./js/pages/purchase.js"></script>
+</head>
+<body>
+<div class="l-page">
+  <header class="l-header">
+    <div class="l-container c-header">
+      <a class="c-header__logo" href="index.html"><svg class="c-icon c-icon--lg" aria-hidden="true"><use href="../kit/icons.svg#icon-logo"></use></svg><span>Cinema.Tickets</span></a>
+      <nav class="c-nav" aria-label="Main">
+        <a class="c-nav__link" href="index.html">Movies</a>
+        <a class="c-nav__link" href="bookings.html">Bookings</a>
+        <a class="c-nav__link" href="cart.html">Cart <span class="c-counter" hidden>0</span></a>
+      </nav>
+      <div class="c-header__user">
+        <a class="c-btn c-btn--secondary c-btn--sm" href="login.html">Log in</a>
+        <a class="c-btn c-btn--primary c-btn--sm" href="registration.html">Register</a>
+      </div>
+    </div>
+  </header>
+  <main class="l-main">
+    <div class="l-container l-stack l-stack--lg">
+      <div class="c-page-title"><div class="c-page-title__main"><h1>Checkout</h1></div></div>
+      <div class="l-split">
+        <div class="l-split__main l-stack l-stack--lg">
+          <section class="c-card" aria-labelledby="contact-title">
+            <div class="c-card__header"><h2 class="c-card__title" id="contact-title">Contact information</h2></div>
+            <div class="c-card__body">
+              <div class="c-static"><span class="c-static__label">Name</span><span class="c-static__value" id="contact-name"></span></div>
+              <div class="c-static"><span class="c-static__label">Email</span><span class="c-static__value" id="contact-email"></span></div>
+              <div class="c-static"><span class="c-static__label">Phone</span><span class="c-static__value" id="contact-phone"></span></div>
+              <p class="u-muted"><a href="profile.html">Edit in profile</a></p>
+            </div>
+          </section>
+          <section class="c-card" aria-labelledby="payment-title">
+            <div class="c-card__header"><h2 class="c-card__title" id="payment-title">Payment method</h2></div>
+            <div class="c-card__body l-stack">
+              <label class="c-choice-card">
+                <input class="c-choice-card__input" type="radio" name="payment" value="Card" checked>
+                <span class="c-choice-card__body">
+                  <span class="c-choice-card__title">Card</span>
+                  <span class="c-choice-card__text">Pay by bank card online.</span>
+                </span>
+              </label>
+              <label class="c-choice-card">
+                <input class="c-choice-card__input" type="radio" name="payment" value="Cash">
+                <span class="c-choice-card__body">
+                  <span class="c-choice-card__title">Cash</span>
+                  <span class="c-choice-card__text">Pay in cash at the box office.</span>
+                </span>
+              </label>
+            </div>
+          </section>
+          <section class="c-card" aria-labelledby="promo-title">
+            <div class="c-card__header"><h2 class="c-card__title" id="promo-title">Promo code</h2></div>
+            <div class="c-card__body">
+              <form class="c-promo__form" id="promo-form" novalidate>
+                <input class="c-input c-promo__input" id="promo-input" type="text" name="promoCode" placeholder="Enter promo code">
+                <button class="c-btn c-btn--secondary" type="submit">Apply</button>
+              </form>
+              <p class="c-promo__message" id="promo-message"></p>
+            </div>
+          </section>
+        </div>
+        <aside class="l-split__aside">
+          <section class="c-summary" aria-labelledby="purchase-summary-title">
+            <h2 class="c-summary__title" id="purchase-summary-title">Summary</h2>
+            <ul class="c-summary__list" id="purchase-list"></ul>
+            <dl class="c-summary__lines" id="purchase-lines">
+              <div class="c-summary__line"><dt>Subtotal</dt><dd id="purchase-subtotal">0 ₽</dd></div>
+              <div class="c-summary__line c-summary__line--discount" id="purchase-discount-row" hidden><dt>Discount</dt><dd id="purchase-discount">0 ₽</dd></div>
+              <div class="c-summary__total"><dt>Total</dt><dd id="purchase-total">0 ₽</dd></div>
+            </dl>
+            <div class="c-summary__actions"><button class="c-btn c-btn--primary c-btn--block" type="button" id="confirm-btn">Confirm booking</button></div>
+          </section>
+        </aside>
+      </div>
+    </div>
+  </main>
+  <footer class="l-footer">
+    <div class="l-container c-footer">© 2026 Cinema.Tickets · Frontend study project</div>
+  </footer>
+  <div class="c-toast-stack"></div>
+</div>
+</body>
+</html>

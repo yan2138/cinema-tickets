@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cinema.Tickets · Cart</title>
+<link rel="stylesheet" href="../kit/tokens.css">
+<link rel="stylesheet" href="../kit/base.css">
+<link rel="stylesheet" href="../kit/layout.css">
+<link rel="stylesheet" href="../kit/components.css">
+<script type="module" src="./js/pages/cart.js"></script>
+</head>
+<body>
+<div class="l-page">
+  <header class="l-header">
+    <div class="l-container c-header">
+      <a class="c-header__logo" href="index.html"><svg class="c-icon c-icon--lg" aria-hidden="true"><use href="../kit/icons.svg#icon-logo"></use></svg><span>Cinema.Tickets</span></a>
+      <nav class="c-nav" aria-label="Main">
+        <a class="c-nav__link" href="index.html">Movies</a>
+        <a class="c-nav__link" href="bookings.html">Bookings</a>
+        <a class="c-nav__link" href="cart.html" aria-current="page">Cart <span class="c-counter" hidden>0</span></a>
+      </nav>
+      <div class="c-header__user">
+        <a class="c-btn c-btn--secondary c-btn--sm" href="login.html">Log in</a>
+        <a class="c-btn c-btn--primary c-btn--sm" href="registration.html">Register</a>
+      </div>
+    </div>
+  </header>
+  <main class="l-main">
+    <div class="l-container l-stack l-stack--lg">
+      <div class="c-page-title">
+        <div class="c-page-title__main">
+          <h1>Cart</h1>
+          <div class="c-page-title__subtitle"><button class="c-btn c-btn--link c-btn--sm" type="button" id="clear-cart">Clear cart</button></div>
+        </div>
+      </div>
+      <div class="l-split">
+        <div class="l-split__main l-stack l-stack--lg" id="cart-groups"></div>
+        <aside class="l-split__aside">
+          <section class="c-summary" aria-labelledby="cart-summary-title">
+            <h2 class="c-summary__title" id="cart-summary-title">Summary</h2>
+            <dl class="c-summary__lines">
+              <div class="c-summary__line"><dt>Tickets</dt><dd id="cart-tickets">0</dd></div>
+              <div class="c-summary__total"><dt>Total</dt><dd id="cart-total">0 ₽</dd></div>
+            </dl>
+            <p class="c-timer" id="cart-timer" hidden><svg class="c-icon c-icon--sm" aria-hidden="true"><use href="../kit/icons.svg#icon-clock"></use></svg><span id="cart-timer-text"></span></p>
+            <div class="c-summary__actions"><a class="c-btn c-btn--primary c-btn--block" href="purchase.html">Proceed to checkout</a></div>
+          </section>
+        </aside>
+      </div>
+    </div>
+  </main>
+  <footer class="l-footer">
+    <div class="l-container c-footer">© 2026 Cinema.Tickets · Frontend study project</div>
+  </footer>
+  <div class="c-toast-stack"></div>
+</div>
+</body>
+</html>
