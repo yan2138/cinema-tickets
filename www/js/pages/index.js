@@ -21,6 +21,26 @@ function readParams() {
   };
 }
 
+// kit 规范（README 第 6 节）：多选控件的摘要要显示 "Any" / 前两个已选标签 / "N selected"。
+// 只勾选不改文字的话，摘要在 Apply 之前和刷新之后都会一直停在 "Any"。
+function syncMultiselectLabels() {
+  document.querySelectorAll('.c-multiselect').forEach((group) => {
+    const valueEl = group.querySelector('.c-multiselect__value');
+    if (!valueEl) return;
+
+    const checked = [...group.querySelectorAll('input[type="checkbox"]')].filter((input) => input.checked);
+    if (checked.length === 0) {
+      valueEl.textContent = 'Any';
+    } else if (checked.length <= 2) {
+      valueEl.textContent = checked
+        .map((input) => input.closest('label')?.querySelector('span:last-of-type')?.textContent.trim() || input.value)
+        .join(', ');
+    } else {
+      valueEl.textContent = `${checked.length} selected`;
+    }
+  });
+}
+
 // 把参数回填到筛选控件（刷新页面后状态恢复）
 function fillFilters(params) {
   for (const name of ['genres', 'ageRatings']) {
@@ -31,6 +51,8 @@ function fillFilters(params) {
   document.querySelector('select[name="date"]').value = params.date;
   document.querySelector('select[name="sorting"]').value = params.sorting;
   document.querySelector('input[name="nowShowing"]').checked = params.nowShowing;
+
+  syncMultiselectLabels();   // 回填后同步摘要文字
 }
 
 // 生成"日期"下拉选项：今天起 scheduleDaysAhead 天
@@ -144,3 +166,18 @@ async function load() {
 
 initHeader();
 load();
+
+// ---------- 筛选栏交互（原生 GET 表单，只补两处细节） ----------
+
+// 1) 勾选/取消时即时更新多选摘要文字
+document.querySelectorAll('.c-multiselect input[type="checkbox"]').forEach((input) => {
+  input.addEventListener('change', syncMultiselectLabels);
+});
+
+// 2) 提交前禁用空值控件：GET 序列化会跳过 disabled 字段，
+//    这样地址栏里不会出现 `date=&sorting=` 这类空参数，URL 更干净（行为不变，接口层本来也会跳过空串）
+document.querySelector('.c-filter-bar').addEventListener('submit', (event) => {
+  for (const el of event.target.elements) {
+    if (el.name && el.value === '') el.disabled = true;
+  }
+});
