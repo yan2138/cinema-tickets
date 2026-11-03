@@ -68,15 +68,25 @@ python -m http.server  # 打开 /www/index.html
 - **信任边界。** 下单只传 `cartItemIds` + `paymentMethod` + `promoCode`，**不传价格**；折扣金额由服务端重算，前端仅做预览。
 - **配置驱动。** `timeZone`、`scheduleDaysAhead`、`maxSeatsPerSession` 均来自 `/api/config`。
 
+## 已实现的边界状态
+
+- **评论写入闭环**：`GET /reviews/check` 三态（`NotAttended` / `Allowed` / `AlreadyReviewed`）分别渲染提示条、写评论表单（1–10 星级 + 10–1000 字符校验）、自己的评论卡片；自己的评论不混在公共列表里，单独渲染在上方；支持编辑与 `<dialog>` 确认删除。
+- **订票关闭**：选座页整图禁用座位并给出关闭时间与返回电影页链接；购物车与结算页对关闭的场次分组加 `is-error` 并显示截止时间；结算页禁用 `Confirm booking`。
+- **单场座位上限**：达到 `maxSeatsPerSession` 时顶部警告，并在请求前拦下多余选座。
+- **游客选座**：座位整体不可点击 + 登录提示条（带 `returnUrl`）。
+- **已登录用户访问登录页 / 注册页**：先校验 token 有效性再重定向首页；`returnUrl` 只接受本站相对路径（挡住 `//evil.com` 这类开放重定向）。
+- **锁定过期**：购物车倒计时进入最后 2 分钟加 `is-warning`、归零加 `is-expired`；被服务端悄悄移除的座位会给出提示而不是静默消失。
+
 ## 已知未完成项
 
 以下为已知缺口，非笔误：
 
-1. 评论**写入**：`api/movies.js` 已封装 `reviews/check`、`create`、`update`、`delete`，页面层目前只实现「读 + Show more 追加」，写评论表单与编辑/删除未接入。
-2. 订票关闭的边界态：选座页未禁用座位、结算页未禁用确认按钮、购物车未给分组加 `is-error`。
-3. `utils/format.js` 中 `formatSessionDateTime` / `formatTimeRange` / `formatCountdown` / `formatSeat` 已实现但页面内联了同类逻辑，待统一收敛。
-4. 列表容器未使用 `aria-busy`；座位请求期间无 `is-loading` 态。
-5. 少数时间格式化（订单列表/详情、评论日期）仍走浏览器本地时区，待统一为影院时区。
+1. `utils/format.js` 中 `formatSessionDateTime` / `formatTimeRange` / `formatCountdown` / `formatSeat` 已实现，但部分页面仍内联同类逻辑，待统一收敛。
+2. 订单列表与订单详情的时间仍走浏览器本地时区（选座 / 购物车 / 电影 / 结算页已统一为影院时区）。
+3. 取消订单的确认仍使用原生 `confirm()`，未替换为 kit 的 `c-dialog`。
+4. 除座位图外，其余列表容器未设置 `aria-busy`。
+5. 展示 API 文本仍使用 `innerHTML` 模板，存在 XSS 面；生产环境应统一转义或改用 `textContent`。
+
 
 ## License
 
